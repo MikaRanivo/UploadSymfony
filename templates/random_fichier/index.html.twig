@@ -1,21 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Random{% endblock %}
+{% block title %}Random
+{% endblock %}
 
 {% block body %}
 <br>
 <div class="container">
 
-	<h1 class="text-white">Liste des Fichiers</h1>
+	<h1 class="text-white">Liste des Fichier</h1>
 	<br>
 	{% if randomFiles is empty %}
-		<p>Aucune Fichier PDF téléchargée.</p>
+		<p>Aucune Fichier téléchargée.</p>
 	{% else %}
-		<div class="container">
+		<div class="container ">
 			<table class="table rounded table-dark table-hover">
 				<thead>
 					<tr>
-						<th>Fichier </th>
+						<th>Fichier
+						</th>
 						<th>Action</th>
 					</tr>
 
@@ -39,10 +41,9 @@
 	</tbody>
 
 	{% for flashError in app.flashes('error') %}
-        <div class="alert alert-danger">{{ flashError }}</div>
-    {% endfor %}
-	
+		<div class="alert alert-danger">{{ flashError }}</div>
+	{% endfor %}
+
 </table></div>{% endif %}<br><br><h1 class="text-white">Ajouter des fichier</h1><br><div class="container rounded bg-dark " style="padding:20px; width:50%;"><form class="mx-auto" method="post" enctype="multipart/form-data" action="{{ path('app_upload_random') }}">
 <input class="text-white" type="file" name="randomFile" required>
-<button class="btn btn-primary" type="submit">Submite</button></form></div></div>
-{% endblock %}
+<button class="btn btn-primary" type="submit">Submite</button></form></div></div>{% endblock %}

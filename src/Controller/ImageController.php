@@ -41,9 +41,9 @@ class ImageController extends AbstractController
             if ($uploadedFile)
              { 
                 $file = new File($uploadedFile);
-                $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                $Types = ['image/jpeg', 'image/png', 'image/gif'];
 
-                if (!in_array($file->getMimeType(), $allowedMimeTypes))
+                if (!in_array($file->getMimeType(), $Types))
                 {
                     $this->addFlash('error', 'Seuls les fichiers image (JPEG, PNG, GIF) sont autorisés.');
                     return $this->redirectToRoute('app_image');
