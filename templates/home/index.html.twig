@@ -1,7 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Hello HomeController!
+{% endblock %}
 
 {% block body %}
-Hello
+	<br><br>
+
+
+	<div class="container justify-content-center">
+		<div class="row justify-content-around">
+			<div class="col-sm-4">
+				<div class="icon-container">
+
+					<a href="{{ path('app_image') }}">
+						<img src="{{ asset('icon/imageicons.png') }}" class="icon-image">
+						<p class="text-white">image</p>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="icon-container">
+
+					<a href="{{ path('app_video') }}">
+						<img src="{{ asset('icon/videoicon.png') }}" class="icon-image">
+						<p class="text-white">Video</p>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-around">
+			<div class="col-sm-4">
+				<div class="icon-container">
+
+					<a href="{{ path('app_pdf') }}">
+						<img src="{{ asset('icon/pdficon.png') }}" class="icon-image">
+						<p class="text-white">PDF</p>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="icon-container">
+					<a href="{{ path('app_random') }}">
+						<img src="{{ asset('icon/random.png') }}" class="icon-image">
+						<p class="text-white">Autre</p>
+					</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
 {% endblock %}
