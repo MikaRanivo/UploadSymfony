@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class VideoController extends AbstractController
@@ -61,4 +63,25 @@ class VideoController extends AbstractController
         }
         return $this->render('video/index.html.twig');
     }
+    #[Route('/video/delete/{filename}', name: 'app_video_delete')]
+    public function deleteVideo(string $filename): Response
+    {
+        $destination = 'VideoUpload';
+        $filePath = $destination . '/' . $filename;
+        $filesystem = new Filesystem();
+        if($filesystem->exists($filePath))
+        {
+            $filesystem->remove($filePath);
+            $this->addFlash('success', 'Fichier ' . $filename . ' supprimer avec succée');
+        }
+        return $this->redirectToRoute('app_video');
+    }
+     #[Route('/video/download/{filename}', name:'app_video_download')]
+     public function downloadvideo(string $filename): BinaryFileResponse
+     {
+         $destination = 'VideoUpload';
+         $filePath = $destination . '/' . $filename;
+         
+         return $this->file($filePath, $filename , ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+     }
 }

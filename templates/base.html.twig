@@ -30,6 +30,12 @@
   </div>
 </nav>
     <body>
-        {% block body %}{% endblock %}
+    {% for flashError in app.flashes('error') %}
+        <div class="alert alert-danger">{{ flashError }}</div>
+    {% endfor %}
+    {% for flashError in app.flashes('success') %}
+        <div class="alert alert-success">{{ flashError }}</div>
+    {% endfor %}
+    {% block body %}{% endblock %}
     </body>
 </html>

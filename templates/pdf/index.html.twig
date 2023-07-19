@@ -27,8 +27,8 @@
 							<td>{{ pdfFile }}</td>
 							<td>
 								<div class="d-flex ">
-									<a class="btn btn-danger me-2" href="#">delete</a>
-									<a class="btn btn-warning me-2" href="#">Upload</a>
+									<a class="btn btn-danger me-2" href=" {{path('app_pdf_delete', {'filename': pdfFile}) }} ">Delete</a>
+									<a class="btn btn-warning me-2" href="{{path('app_pdf_download', {'filename': pdfFile}) }}">Download</a>
 								</div>
 							</td>
 						</tr>
@@ -38,10 +38,6 @@
 
 		{% endfor %}
 	</tbody>
-
-	{% for flashError in app.flashes('error') %}
-		<div class="alert alert-danger">{{ flashError }}</div>
-	{% endfor %}
 
 </table></div>{% endif %}<br><br><h1 class="text-white">Ajouter des fichier</h1><br><div class="container rounded bg-dark " style="padding:20px; width:50%;"><form class="mx-auto" method="post" enctype="multipart/form-data" action="{{ path('app_upload_pdf') }}">
 <input class="text-white" type="file" name="pdfFile" required>

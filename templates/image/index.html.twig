@@ -5,6 +5,7 @@
 
 {% block body %}
 <br>
+
 <div class="container">
 
 	<h1 class="text-white">Liste des images</h1>
@@ -27,8 +28,8 @@
 							<td>{{ imageFile }}</td>
 							<td>
 								<div class="d-flex ">
-									<a class="btn btn-danger me-2" href="#">delete</a>
-									<a class="btn btn-warning me-2" href="#">Upload</a>
+									<a class="btn btn-danger me-2" href=" {{path('app_image_delete', {'filename': imageFile}) }} " >delete</a>
+									<a class="btn btn-warning me-2" href=" {{path('app_image_download', {'filename': imageFile} ) }} ">Download</a>
 								</div>
 							</td>
 						</tr>
@@ -38,10 +39,6 @@
 
 		{% endfor %}
 	</tbody>
-
-	{% for flashError in app.flashes('error') %}
-        <div class="alert alert-danger">{{ flashError }}</div>
-    {% endfor %}
 
 </table></div>{% endif %}<br><br><h1 class="text-white">Ajouter une image</h1><br><div class="container rounded bg-dark " style="padding:20px; width:50%;"><form class="mx-auto" method="post" enctype="multipart/form-data" action="{{ path('app_upload_Image') }}">
 <input class="text-white" type="file" name="imageFile" required>

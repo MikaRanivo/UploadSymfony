@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RandomFichierController extends AbstractController
@@ -52,6 +54,28 @@ class RandomFichierController extends AbstractController
             }
         }
         return $this->render('random_fichier/index.html.twig');
-        
     }
+
+    #[Route('/random/delete/{filename}', name : 'app_random_delete')]
+    public function deleteRandom(string $filename): Response
+    {
+        $destination= 'RandomUpload';
+        $filePath = $destination .'/'. $filename;
+        $filesystem = new Filesystem();
+        if($filesystem->exists($filePath))
+        {
+            $filesystem->remove($filePath);
+            $this->addFlash('success', ' le fichier '. $filename. ' est supprimer avec succée');
+        }
+        return $this->redirectToRoute('app_random');
+    }
+
+     #[Route('/random/download/{filename}', name:'app_random_download')]
+     public function downloadRandom(string $filename): BinaryFileResponse
+     {
+         $destination = 'RandomUpload';
+         $filePath = $destination . '/' . $filename;
+         
+         return $this->file($filePath, $filename , ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+     }
 }

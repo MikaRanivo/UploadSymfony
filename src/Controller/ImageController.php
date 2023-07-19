@@ -8,6 +8,8 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController extends AbstractController
@@ -57,5 +59,29 @@ class ImageController extends AbstractController
             }
         }
         return $this->render('image/index.html.twig');
+    }
+    #[Route('\image\delete\{filename}' , name: 'app_image_delete')]
+    public function ImageDelete(string $filename): Response
+    {
+        $destination = 'ImageUpload';
+        $filepath = $destination . '/' . $filename;
+        $filesystem = new Filesystem();
+        if($filesystem->exists($filepath))
+        {
+            $filesystem->remove($filepath);
+            $this->addflash('success', 'Image' .$filename. ' supprimer avec succé');
+        }else
+        {
+            $this->addflash('error', 'Image n\'existe pas');
+        }
+        return $this->redirectToRoute('app_image');
+    }
+    #[Route('/image/download/{filename}', name:'app_image_download')]
+    public function downloadImage(string $filename): BinaryFileResponse
+    {
+        $destination = 'ImageUpload';
+        $filePath = $destination . '/' . $filename;
+
+        return $this->file($filePath, $filename , ResponseHeaderBag::DISPOSITION_ATTACHMENT);
     }
 }
